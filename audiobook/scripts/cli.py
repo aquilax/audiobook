@@ -1,6 +1,8 @@
+import yaml
 import os
 import click
-from audiobook.metafile import init as metafile_init, meta_data_template
+from audiobook.metafile import (init as metafile_init, meta_data_template,
+                                scan_direcory)
 from audiobook.exceptions import ExInitialized
 from audiobook.consts import EXIT_OK, EXIT_ALREADY_INITIALIZED
 
@@ -35,3 +37,11 @@ def init(title: str, author: list, isbn: str, tag: list, rating: float,
         exit(EXIT_ALREADY_INITIALIZED)
     click.echo('Current directory is initialized')
     exit(EXIT_OK)
+
+@cli.command()
+@click.argument('directory')
+def scan(directory: str):
+    books = scan_direcory(directory)
+    for book in books:
+        print('- - -')
+        print(yaml.dump(book))

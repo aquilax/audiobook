@@ -29,6 +29,18 @@ def init(current_directory: str, meta_data: OrderedDict) -> None:
     raise ExInitialized("The current directory is already initialized")
 
 
+def scan_direcory(directory: str):
+    books = []
+    walk_dir = os.path.abspath(directory)
+    for root, subdirs, files in os.walk(walk_dir):
+        file_name = os.path.join(root, META_FILE_NAME)
+        if os.path.exists(file_name):
+            with open(file_name, 'r') as file:
+                book = yaml.load(file)
+                book['file_name'] = file_name
+                books.append(book)
+    return books
+
 # http://stackoverflow.com/a/31609484/17734
 def setup_yaml():
     represent_dict_order = lambda self, data:  self.represent_mapping(
