@@ -2,7 +2,7 @@ import os
 from  collections import OrderedDict
 import yaml
 from yaml import dump, Dumper
-from audiobook.consts import META_FILE_NAME
+from audiobook.consts import META_FILE_NAME, PROMO_TEXT
 from audiobook.exceptions import ExInitialized
 
 meta_data_template = OrderedDict([
@@ -14,6 +14,7 @@ meta_data_template = OrderedDict([
     ('tags', []),
     ('rating', 0.0),
     ('language', 'English'),
+    ('published', ''),
     ('description', ''),
 ])
 
@@ -24,6 +25,8 @@ def init(current_directory: str, meta_data: OrderedDict) -> None:
         with open(file_path, "w") as meta_file:
             yaml_data = dump(meta_data, Dumper=Dumper,
                              default_flow_style=False)
+            meta_file.write(
+                '# {promo_text}\n'.format(promo_text=PROMO_TEXT))
             meta_file.write(yaml_data)
         return
     raise ExInitialized("The current directory is already initialized")
