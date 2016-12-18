@@ -14,8 +14,11 @@ def cli():
 @click.option('--author', multiple=True)
 @click.option('--isbn', default='')
 @click.option('--tag', multiple=True)
-@click.option('--rating', default=0)
-def init(title: str, author: list, isbn: str, tag: list, rating: int):
+@click.option('--rating', default=0.0)
+@click.option('--language', default='English')
+@click.option('--cover', default='')
+def init(title: str, author: list, isbn: str, tag: list, rating: float,
+         language: str, cover: str):
     """Initialize the current directory as audio book directory"""
     try:
         meta_data = meta_data_template
@@ -24,6 +27,8 @@ def init(title: str, author: list, isbn: str, tag: list, rating: int):
         meta_data['ISBN'] = isbn
         meta_data['tags'] = list(tag)
         meta_data['rating'] = rating
+        meta_data['language'] = language
+        meta_data['cover'] = cover
         metafile_init(os.getcwd(), meta_data)
     except ExInitialized:
         click.echo('Current directory is already initialized')

@@ -9,10 +9,12 @@ meta_data_template = OrderedDict([
     ('title', ''),
     ('authors', []),
     ('ISBN', ''),
+    ('ASIN', ''),
     ('cover', ''),
     ('tags', []),
-    ('rating', 0),
+    ('rating', 0.0),
     ('language', 'English'),
+    ('description', ''),
 ])
 
 
