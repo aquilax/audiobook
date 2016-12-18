@@ -41,6 +41,7 @@ def init(title: str, author: list, isbn: str, tag: list, rating: float,
 @cli.command()
 @click.argument('directory')
 def scan(directory: str):
+    """Scans directory for audio books and prints the meta information"""
     books = scan_direcory(directory)
     for book in books:
         print('- - -')
