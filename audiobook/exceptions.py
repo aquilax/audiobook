@@ -1,0 +1,2 @@
+class ExInitialized(Exception):
+    pass
