@@ -9,7 +9,7 @@ Simple Audiobook manager
 
 ## Sample yaml file
 
-```
+```yaml
 title: "Calculating the Cosmos: How Mathematics Unveils the Universe"
 authors:
   - Ian Stewart
