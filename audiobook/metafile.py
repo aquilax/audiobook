@@ -5,18 +5,18 @@ from yaml import dump, Dumper
 from audiobook.consts import META_FILE_NAME
 from audiobook.exceptions import ExInitialized
 
-meta_data = OrderedDict([
+meta_data_template = OrderedDict([
     ('title', ''),
-    ('authors', ['']),
+    ('authors', []),
     ('ISBN', ''),
     ('cover', ''),
-    ('tags', ['']),
+    ('tags', []),
     ('rating', 0),
     ('language', 'English'),
 ])
 
 
-def init(current_directory: str) -> None:
+def init(current_directory: str, meta_data: OrderedDict) -> None:
     file_path = os.path.join(current_directory, META_FILE_NAME)
     if not os.path.exists(file_path):
         with open(file_path, "w") as meta_file:
