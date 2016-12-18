@@ -33,7 +33,6 @@ def init(current_directory: str, meta_data: OrderedDict) -> None:
 
 
 def scan_direcory(directory: str):
-    books = []
     walk_dir = os.path.abspath(directory)
     for root, subdirs, files in os.walk(walk_dir):
         file_name = os.path.join(root, META_FILE_NAME)
@@ -41,8 +40,7 @@ def scan_direcory(directory: str):
             with open(file_name, 'r') as file:
                 book = yaml.load(file)
                 book['file_name'] = file_name
-                books.append(book)
-    return books
+                yield(book)
 
 # http://stackoverflow.com/a/31609484/17734
 def setup_yaml():
