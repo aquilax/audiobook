@@ -5,6 +5,9 @@ from audiobook.metafile import (init as metafile_init, meta_data_template,
                                 scan_direcory)
 from audiobook.exceptions import ExInitialized
 from audiobook.consts import EXIT_OK, EXIT_ALREADY_INITIALIZED
+from audiobook.filter import get_filter
+from typing import List
+
 
 @click.group()
 def cli():
@@ -40,9 +43,13 @@ def init(title: str, author: list, isbn: str, tag: list, rating: float,
 
 @cli.command()
 @click.argument('directory')
-def scan(directory: str):
+@click.option('--filter', multiple=True)
+def scan(directory: str, filter: List[str]):
     """Scans directory for audio books and prints the meta information"""
     books = scan_direcory(directory)
+    filter_func = get_filter(list(filter))
     for book in books:
-        print('- - -')
-        print(yaml.dump(book))
+        book = filter_func(book)
+        if book:
+            print('- - -')
+            print(yaml.dump(book))

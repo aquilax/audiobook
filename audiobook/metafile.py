@@ -1,5 +1,5 @@
 import os
-from  collections import OrderedDict
+from collections import OrderedDict
 import yaml
 from yaml import dump, Dumper
 from audiobook.consts import META_FILE_NAME, PROMO_TEXT
@@ -41,6 +41,7 @@ def scan_direcory(directory: str):
                 book = yaml.load(file)
                 book['file_name'] = file_name
                 yield(book)
+
 
 # http://stackoverflow.com/a/31609484/17734
 def setup_yaml():
